@@ -516,13 +516,13 @@ void PrintExceptionContinue(const std::exception* pex, const char* pszThread)
 boost::filesystem::path GetDefaultDataDir()
 {
     namespace fs = boost::filesystem;
-    // Windows < Vista: C:\Documents and Settings\Username\Application Data\EdenCore
-    // Windows >= Vista: C:\Users\Username\AppData\Roaming\EdenCore
-    // Mac: ~/Library/Application Support/EdenCore
+    // Windows < Vista: C:\Documents and Settings\Username\Application Data\Eden
+    // Windows >= Vista: C:\Users\Username\AppData\Roaming\Eden
+    // Mac: ~/Library/Application Support/Eden
     // Unix: ~/.eden
 #ifdef WIN32
     // Windows
-    return GetSpecialFolderPath(CSIDL_APPDATA) / "EdenCore";
+    return GetSpecialFolderPath(CSIDL_APPDATA) / "Eden";
 #else
     fs::path pathRet;
     char* pszHome = getenv("HOME");
@@ -532,7 +532,7 @@ boost::filesystem::path GetDefaultDataDir()
         pathRet = fs::path(pszHome);
 #ifdef MAC_OSX
     // Mac
-    return pathRet / "Library/Application Support/EdenCore";
+    return pathRet / "Library/Application Support/Eden";
 #else
     // Unix
     return pathRet / ".eden";
