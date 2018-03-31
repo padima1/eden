@@ -137,6 +137,10 @@ public:
         vSeeds.push_back(CDNSSeedData("2", "173.254.248.237"));// NA-2
         vSeeds.push_back(CDNSSeedData("3", "64.110.131.165"));// NA-3
         vSeeds.push_back(CDNSSeedData("4", "64.110.129.191"));// NA-4
+        vSeeds.push_back(CDNSSeedData("5", "188.166.173.185"));// UK
+        vSeeds.push_back(CDNSSeedData("6", "167.99.142.15"));// DE
+        vSeeds.push_back(CDNSSeedData("7", "167.99.37.64"));// NL
+        vSeeds.push_back(CDNSSeedData("8", "139.59.226.90"));// AS
 
         // Eden addresses start with 'E'
         base58Prefixes[PUBKEY_ADDRESS] = std::vector<unsigned char>(1,33);
