@@ -77,7 +77,7 @@ public:
         consensus.nMajorityRejectBlockOutdated = 950;
         consensus.nMajorityWindow = 1000;
         consensus.BIP34Height = 1;
-        consensus.BIP34Hash = uint256S("0x0");
+        consensus.BIP34Hash = uint256S("0000036a07ec7d80b2a4d326c2f26140ee17e591bbe1f631fb82b77cd14c3e59");
         consensus.powLimit = uint256S("00000fffffffffffffffffffffffffffffffffffffffffffffffffffffffffff");
         consensus.nPowTargetSpacing = 1 * 60; // Eden: 1 minute
         consensus.nPowTargetTimespan = 30 * 60; // Eden: 30 minutes
@@ -106,7 +106,7 @@ public:
         consensus.vDeployments[Consensus::DEPLOYMENT_DIP0001].nThreshold = 50; // 50% of 100
 
         // The best chain should have at least this much work.
-        consensus.nMinimumChainWork = uint256S("0x0");
+        consensus.nMinimumChainWork = uint256S("0000000000000000000000000000000000000000000000000000000000c0000c");
 
         // By default assume that the signatures in ancestors of this block are valid.
         consensus.defaultAssumeValid = uint256S("0x0");
@@ -167,10 +167,10 @@ public:
 
         checkpointData = (CCheckpointData) {
             boost::assign::map_list_of
-            ( 0, uint256S("000007fb4d617fc92f700fb1e13f187f304fe7074ccda14e8a7e9b0ebc33f631")),
-            //( 1, uint256S("")),
-            1522519039, // * UNIX timestamp of last checkpoint block
-            1,    // * total number of transactions between genesis and last checkpoint
+            ( 0, uint256S("000007fb4d617fc92f700fb1e13f187f304fe7074ccda14e8a7e9b0ebc33f631"))
+            ( 10, uint256S("00000e6ab55dd53d5fab83da6acdb161ad6dcb8676d5ff3783acaee688ea4160")),
+            1522537448, // * UNIX timestamp of last checkpoint block
+            12,    // * total number of transactions between genesis and last checkpoint
                         //   (the tx=... number in the SetBestChain debug.log lines)
             0.01        // * estimated number of transactions per day after checkpoint
         };
