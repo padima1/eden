@@ -133,8 +133,8 @@ public:
         assert(consensus.hashGenesisBlock == uint256S("0x000005458db623d404cef4a0d69934cd885bd6f3adb897e51eb91ac73d170c08"));
         assert(genesis.hashMerkleRoot == uint256S("0xb04dd635d1e43a6ee1a8e58f5a8ff246437bd2df8b8467b5bba79d5f7ec5c2fc"));
 
-        //vSeeds.push_back(CDNSSeedData("1", "64.110.131.165"));
-        //vSeeds.push_back(CDNSSeedData("2", "64.110.131.165"));
+        vSeeds.push_back(CDNSSeedData("1", "001us.ddns.net"));
+        vSeeds.push_back(CDNSSeedData("2", "002us.ddns.net"));
 
         // Eden addresses start with 'E'
         base58Prefixes[PUBKEY_ADDRESS] = std::vector<unsigned char>(1,33);
