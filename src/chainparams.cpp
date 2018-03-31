@@ -48,7 +48,7 @@ static CBlock CreateGenesisBlock(const char* pszTimestamp, const CScript& genesi
  */
 static CBlock CreateGenesisBlock(uint32_t nTime, uint32_t nNonce, uint32_t nBits, int32_t nVersion, const CAmount& genesisReward)
 {
-    const char* pszTimestamp = "Eden Research X16S Main Network 3/31/18 - d26e734cc4cab562";
+    const char* pszTimestamp = "Eden Research X16S Main Network 3/31/18";
     const CScript genesisOutputScript = CScript() << ParseHex("040184710fa689ad5023690c80f3a49c8f13f8d45b8c857fbcbc8bc4a8e4d3eb4b10f4d4604fa08dce601aaf0f470216fe1b51850b4acf21b179c45070ac7b03a9") << OP_CHECKSIG;
     return CreateGenesisBlock(pszTimestamp, genesisOutputScript, nTime, nNonce, nBits, nVersion, genesisReward);
 }
@@ -77,7 +77,7 @@ public:
         consensus.nMajorityRejectBlockOutdated = 950;
         consensus.nMajorityWindow = 1000;
         consensus.BIP34Height = 1;
-        consensus.BIP34Hash = uint256S("0x00000bb4f23368e95dc11c3e4c23032ecb228b492786e7f7b0234c577c3703a2");
+        consensus.BIP34Hash = uint256S("0x0");
         consensus.powLimit = uint256S("00000fffffffffffffffffffffffffffffffffffffffffffffffffffffffffff");
         consensus.nPowTargetSpacing = 1 * 60; // Eden: 1 minute
         consensus.nPowTargetTimespan = 30 * 60; // Eden: 30 minutes
@@ -106,7 +106,7 @@ public:
         consensus.vDeployments[Consensus::DEPLOYMENT_DIP0001].nThreshold = 50; // 50% of 100
 
         // The best chain should have at least this much work.
-        consensus.nMinimumChainWork = uint256S("0x0000000000000000000000000000000000000000000000000000000000200002");
+        consensus.nMinimumChainWork = uint256S("0x0");
 
         // By default assume that the signatures in ancestors of this block are valid.
         consensus.defaultAssumeValid = uint256S("0x0");
@@ -116,25 +116,27 @@ public:
          * The characters are rarely used upper ASCII, not valid as UTF-8, and produce
          * a large 32-bit integer with any alignment.
          */
-        pchMessageStart[0] = 0x6b;
-        pchMessageStart[1] = 0x8a;
-        pchMessageStart[2] = 0x4F;
-        pchMessageStart[3] = 0xc7;
+        pchMessageStart[0] = 0x8c;
+        pchMessageStart[1] = 0xd3;
+        pchMessageStart[2] = 0xA2;
+        pchMessageStart[3] = 0xf5;
         vAlertPubKey = ParseHex("0493d1cae6fae9cf48747c6b82aeade0cfeb0c7ed187e3b0d31b51a6baf082f67a10b27c981b8548f991f3d7bed55a55c78b6e1e555880dcfc88d6378cce76fb65");
         nDefaultPort = 3595;
         nMaxTipAge = 6 * 60 * 60; // ~144 blocks behind -> 2 x fork detection time, was 24 * 60 * 60 in bitcoin
         nDelayGetHeadersTime = 24 * 60 * 60;
         nPruneAfterHeight = 100000;
 
-        genesis = CreateGenesisBlock(1522468867, 409371, UintToArith256(consensus.powLimit).GetCompact(), 1, (50 * COIN));
+        genesis = CreateGenesisBlock(1522519039, 1740033, UintToArith256(consensus.powLimit).GetCompact(), 1, (0 * COIN));
 
         consensus.hashGenesisBlock = genesis.GetHash();
+                
+        assert(consensus.hashGenesisBlock == uint256S("000007fb4d617fc92f700fb1e13f187f304fe7074ccda14e8a7e9b0ebc33f631"));
+        assert(genesis.hashMerkleRoot == uint256S("6414045d49281b2c6339a27b767238f20571ecc88d4e3359ed94c4bb23116aeb"));
 
-        assert(consensus.hashGenesisBlock == uint256S("0x000005458db623d404cef4a0d69934cd885bd6f3adb897e51eb91ac73d170c08"));
-        assert(genesis.hashMerkleRoot == uint256S("0xb04dd635d1e43a6ee1a8e58f5a8ff246437bd2df8b8467b5bba79d5f7ec5c2fc"));
-
-        vSeeds.push_back(CDNSSeedData("1", "001us.ddns.net"));
-        vSeeds.push_back(CDNSSeedData("2", "002us.ddns.net"));
+        vSeeds.push_back(CDNSSeedData("1", "173.254.224.62"));// NA-1
+        vSeeds.push_back(CDNSSeedData("2", "173.254.248.237"));// NA-2
+        vSeeds.push_back(CDNSSeedData("3", "64.110.131.165"));// NA-3
+        vSeeds.push_back(CDNSSeedData("4", "64.110.129.191"));// NA-4
 
         // Eden addresses start with 'E'
         base58Prefixes[PUBKEY_ADDRESS] = std::vector<unsigned char>(1,33);
@@ -161,10 +163,10 @@ public:
 
         checkpointData = (CCheckpointData) {
             boost::assign::map_list_of
-            ( 0, uint256S("000005458db623d404cef4a0d69934cd885bd6f3adb897e51eb91ac73d170c08"))
-            ( 1, uint256S("00000bb4f23368e95dc11c3e4c23032ecb228b492786e7f7b0234c577c3703a2")),
-            1522468869, // * UNIX timestamp of last checkpoint block
-            2,    // * total number of transactions between genesis and last checkpoint
+            ( 0, uint256S("000007fb4d617fc92f700fb1e13f187f304fe7074ccda14e8a7e9b0ebc33f631")),
+            //( 1, uint256S("")),
+            1522519039, // * UNIX timestamp of last checkpoint block
+            1,    // * total number of transactions between genesis and last checkpoint
                         //   (the tx=... number in the SetBestChain debug.log lines)
             0.01        // * estimated number of transactions per day after checkpoint
         };
