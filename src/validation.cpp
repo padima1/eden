@@ -1235,6 +1235,9 @@ CAmount GetBlockSubsidy(int nPrevBits, int nPrevHeight, const Consensus::Params&
     // instamine protection 500 blocks
     else if (nPrevHeight > 0 && nPrevHeight <= LOW_SUBSIDY_HEIGHT)
         nSubsidy = 0 * COIN;
+    // Change reward to 50 after block 12000
+    else if (nPrevHeight > 12000)
+        nSubsidy = 50 * COIN;
 
     // Hard fork to reduce the block reward by 1 extra percent (allowing budget/superblocks)
     CAmount nSuperblockPart = (nPrevHeight > consensusParams.nBudgetPaymentsStartBlock) ? nSubsidy/1 : 0;

@@ -11,11 +11,10 @@ X16S Whitepaper: https://mega.nz/#!YQAFkCyA!MSwNKd6vHGWHdTOMnnGqiznMlbIulTLqvu8L
 __________________________________________________________________________
 ### Eden Specifications
 
-###### Current Version: 1.0.0.0 (Revolt)
+###### Current Version: 1.0.0.1 (Revolt)
 ###### PoW Algorithm: X16S
 ###### Block Max Size: 6 MB
 ###### Block Time: ~60 seconds
-###### Block Reward: 50 EDEN
 ###### Premine: 5%
 ###### Maturity: 125 blocks
 ###### Max Supply: 14000000 EDEN
