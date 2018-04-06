@@ -39,7 +39,7 @@ version		Version number, commit, or branch to build. If building a commit or bra
 
 Options:
 -c|--commit	Indicate that the version argument is for a commit or branch
--u|--url	Specify the URL of the repository. Default is https://github.com/dashpay/dash
+-u|--url	Specify the URL of the repository. Default is https://github.com/padima1/eden.git
 -v|--verify 	Verify the Gitian build
 -b|--build	Do a Gitian build
 -s|--sign	Make signed binaries for Windows and Mac OSX
@@ -264,7 +264,7 @@ then
 	mkdir -p inputs
 	wget -N -P inputs $osslPatchUrl
 	wget -N -P inputs $osslTarUrl
-	make -C ../dash/depends download SOURCES_PATH=`pwd`/cache/common
+	make -C ../eden/depends download SOURCES_PATH=`pwd`/cache/common
 
 	# Linux
 	if [[ $linux = true ]]
@@ -273,7 +273,7 @@ then
 	    echo "Compiling ${VERSION} Linux"
 	    echo ""
 	    ./bin/gbuild -j ${proc} -m ${mem} --commit eden=${COMMIT} --url eden=${url} ../eden/contrib/gitian-descriptors/gitian-linux.yml
-	    ./bin/gsign -p $signProg --signer $SIGNER --release ${VERSION}-linux --destination ../gitian.sigs/ ../eden/contrib/gitian-descriptors/gitian-linux.yml
+	    ./bin/gsign -p $signProg --signer $SIGNER --release ${VERSION}-linux --destination ../eden/contrib/gitian-descriptors/gitian-linux.yml
 	    mv build/out/eden-*.tar.gz build/out/src/eden-*.tar.gz ../eden-binaries/${VERSION}
 	fi
 	# Windows
@@ -283,7 +283,7 @@ then
 	    echo "Compiling ${VERSION} Windows"
 	    echo ""
 	    ./bin/gbuild -j ${proc} -m ${mem} --commit dash=${COMMIT} --url eden=${url} ../eden/contrib/gitian-descriptors/gitian-win.yml
-	    ./bin/gsign -p $signProg --signer $SIGNER --release ${VERSION}-win-unsigned --destination ../gitian.sigs/ ../eden/contrib/gitian-descriptors/gitian-win.yml
+	    ./bin/gsign -p $signProg --signer $SIGNER --release ${VERSION}-win-unsigned --destination ../eden/contrib/gitian-descriptors/gitian-win.yml
 	    mv build/out/eden-*-win-unsigned.tar.gz inputs/eden-win-unsigned.tar.gz
 	    mv build/out/eden-*.zip build/out/eden-*.exe ../eden-binaries/${VERSION}
 	fi
@@ -294,7 +294,7 @@ then
 	    echo "Compiling ${VERSION} Mac OSX"
 	    echo ""
 	    ./bin/gbuild -j ${proc} -m ${mem} --commit eden=${COMMIT} --url eden=${url} ../eden/contrib/gitian-descriptors/gitian-osx.yml
-	    ./bin/gsign -p $signProg --signer $SIGNER --release ${VERSION}-osx-unsigned --destination ../gitian.sigs/ ../eden/contrib/gitian-descriptors/gitian-osx.yml
+	    ./bin/gsign -p $signProg --signer $SIGNER --release ${VERSION}-osx-unsigned --destination ../eden/contrib/gitian-descriptors/gitian-osx.yml
 	    mv build/out/eden-*-osx-unsigned.tar.gz inputs/eden-osx-unsigned.tar.gz
 	    mv build/out/eden-*.tar.gz build/out/dash-*.dmg ../eden-binaries/${VERSION}
 	fi
@@ -306,7 +306,7 @@ then
             echo ""
             echo "Committing ${VERSION} Unsigned Sigs"
             echo ""
-            pushd gitian.sigs
+        #    pushd gitian.sigs
             git add ${VERSION}-linux/${SIGNER}
             git add ${VERSION}-win-unsigned/${SIGNER}
             git add ${VERSION}-osx-unsigned/${SIGNER}
@@ -323,27 +323,27 @@ then
 	echo ""
 	echo "Verifying v${VERSION} Linux"
 	echo ""
-	./bin/gverify -v -d ../gitian.sigs/ -r ${VERSION}-linux ../eden/contrib/gitian-descriptors/gitian-linux.yml
+	./bin/gverify -v -d  ${VERSION}-linux ../eden/contrib/gitian-descriptors/gitian-linux.yml
 	# Windows
 	echo ""
 	echo "Verifying v${VERSION} Windows"
 	echo ""
-	./bin/gverify -v -d ../gitian.sigs/ -r ${VERSION}-win-unsigned ../eden/contrib/gitian-descriptors/gitian-win.yml
+	./bin/gverify -v -d   ${VERSION}-win-unsigned ../eden/contrib/gitian-descriptors/gitian-win.yml
 	# Mac OSX	
 	echo ""
 	echo "Verifying v${VERSION} Mac OSX"
 	echo ""	
-	./bin/gverify -v -d ../gitian.sigs/ -r ${VERSION}-osx-unsigned ../eden/contrib/gitian-descriptors/gitian-osx.yml
+	./bin/gverify -v -d ${VERSION}-osx-unsigned ../eden/contrib/gitian-descriptors/gitian-osx.yml
 	# Signed Windows
 	echo ""
 	echo "Verifying v${VERSION} Signed Windows"
 	echo ""
-	./bin/gverify -v -d ../gitian.sigs/ -r ${VERSION}-osx-signed ../eden/contrib/gitian-descriptors/gitian-osx-signer.yml
+	./bin/gverify -v -d ${VERSION}-osx-signed ../eden/contrib/gitian-descriptors/gitian-osx-signer.yml
 	# Signed Mac OSX
 	echo ""
 	echo "Verifying v${VERSION} Signed Mac OSX"
 	echo ""
-	./bin/gverify -v -d ../gitian.sigs/ -r ${VERSION}-osx-signed ../eden/contrib/gitian-descriptors/gitian-osx-signer.yml	
+	./bin/gverify -v -d  ${VERSION}-osx-signed ../eden/contrib/gitian-descriptors/gitian-osx-signer.yml	
 	popd
 fi
 
@@ -359,7 +359,7 @@ then
 	    echo "Signing ${VERSION} Windows"
 	    echo ""
 	    ./bin/gbuild -i --commit signature=${COMMIT} ../eden/contrib/gitian-descriptors/gitian-win-signer.yml
-	    ./bin/gsign -p $signProg --signer $SIGNER --release ${VERSION}-win-signed --destination ../gitian.sigs/ ../eden/contrib/gitian-descriptors/gitian-win-signer.yml
+	    ./bin/gsign -p $signProg --signer $SIGNER --release ${VERSION}-win-signed --destination ../eden/contrib/gitian-descriptors/gitian-win-signer.yml
 	    mv build/out/eden-*win64-setup.exe ../eden-binaries/${VERSION}
 	    mv build/out/eden-*win32-setup.exe ../eden-binaries/${VERSION}
 	fi
@@ -370,7 +370,7 @@ then
 	    echo "Signing ${VERSION} Mac OSX"
 	    echo ""
 	    ./bin/gbuild -i --commit signature=${COMMIT} ../eden/contrib/gitian-descriptors/gitian-osx-signer.yml
-	    ./bin/gsign -p $signProg --signer $SIGNER --release ${VERSION}-osx-signed --destination ../gitian.sigs/ ../eden/contrib/gitian-descriptors/gitian-osx-signer.yml
+	    ./bin/gsign -p $signProg --signer $SIGNER --release ${VERSION}-osx-signed --destination ../eden/contrib/gitian-descriptors/gitian-osx-signer.yml
 	    mv build/out/eden-osx-signed.dmg ../eden-binaries/${VERSION}/eden-${VERSION}-osx.dmg
 	fi
 	popd
