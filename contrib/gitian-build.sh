@@ -15,7 +15,7 @@ osx=true
 
 # Other Basic variables
 SIGNER=
-VERSION=
+VERSION=1.0.1
 commit=false
 url=https://github.com/padima1/eden.git
 proc=2
@@ -25,7 +25,7 @@ osslTarUrl=http://downloads.sourceforge.net/project/osslsigncode/osslsigncode/os
 osslPatchUrl=https://bitcoincore.org/cfields/osslsigncode-Backports-to-1.7.1.patch
 scriptName=$(basename -- "$0")
 signProg="gpg --detach-sign"
-commitFiles=true
+commitFiles=false
 
 # Help Message
 read -d '' usage <<- EOF
@@ -67,11 +67,11 @@ while :; do
             ;;
         # Sign binaries
         -s|--sign)
-	    sign=true
+	    sign=false
             ;;
         # Build then Sign
         -B|--buildsign)
-	    sign=true
+	    sign=false
 	    build=true
             ;;
         # PGP Signer
@@ -117,7 +117,7 @@ while :; do
 	    ;;
 	# Commit or branch
 	-c|--commit)
-	    commit=true
+	    commit=false
 	    ;;
 	# Number of Processes
 	-j)
